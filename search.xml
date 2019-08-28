@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[my note]]></title>
-    <url>%2F2019%2F02%2F22%2Fmy%20note%2F</url>
-    <content type="text"><![CDATA[筛选消息寻是的开发了 阿萨德*阿萨德撒的 送达书法大师的撒多 12@RestController@RequestMapping("/")]]></content>
+    <title><![CDATA[mybatis逆向生成工程]]></title>
+    <url>%2F2019%2F08%2F28%2Fmybatis%E9%80%86%E5%90%91%E7%94%9F%E6%88%90%2F</url>
+    <content type="text"></content>
       <categories>
-        <category>随记</category>
+        <category>SpringBoot</category>
+        <category>SSM</category>
       </categories>
       <tags>
-        <tag>文章</tag>
+        <tag>MyBatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[库存同步]]></title>
+    <url>%2F2019%2F02%2F25%2F%E5%BA%93%E5%AD%98%E5%90%8C%E6%AD%A5%2F</url>
+    <content type="text"><![CDATA[库存同步背景公司自研ORP(Order Resource manage Plateform订单资源管理平台)上线后，公司对库存的管理做了相应的调整,工厂使用用友U8系统进行生产和成品库存管理，销售公司订单部进行销售发货是使用公司自研的订单ERP系统完成货运匹配、订单处理、打包发货等操作.为了实现两套系统中的库存同步，在各自系统中建立了同样的仓库，并靠人工每天将产生的订单进行导入或录入达到库存同步的目的,这种库存同步的方式耗费人工的且库存时效性低，因此需进行系统之间的数据集成，达到数据时效性和降低人工成本的目的 目标在保证系统稳定的前提下实现库存的自动同步,提高同步的时效性 技术选取1.U8到中间件的数据同步,采用数据库触发器的方式写入中间件数据库.当有新数据插入的时候会触发触发器,开始往中间件数据库写入数据.2.为了保证数据传输的可靠性,中间件与ORP的通信采用消息队列方式实现,并开启ACK验证,消息持久化. 系统时序图U8同步库存到ERP序列图12345678sequenceDiagram participant U8 participant 中间件 participant ERP U8-&gt;&gt;中间件:新的出入库记录(排除ERP同步订单) 中间件-&gt;&gt;ERP:发送新的库存变更记录 ERP-&gt;&gt;中间件:返回同步结果 note left of 中间件:更新中间件数据库状态 ERP出入库记录同步到U81234567sequenceDiagram participant U8 participant 中间件 participant ERP ERP-&gt;&gt;中间件:出入库记录及详情 中间件-&gt;&gt;U8:调用存储过程在U8数据库生成发货单和出库单 U8-&gt;&gt;中间件:返回单据号和其他信息回写到中间件 总结]]></content>
+      <categories>
+        <category>U8库存同步</category>
+        <category>系统设计</category>
+      </categories>
+      <tags>
+        <tag>U8库存同步</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[上线流程]]></title>
+    <url>%2F2019%2F02%2F25%2F%E4%B8%8A%E7%BA%BF%E6%B5%81%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[由于本项目涉及到两个系统的对接,特给出上线流程1.清空中间库数据,手动添加公司和仓库code映射表数据 2.U8库存同步到中间件,考虑到erp同步逻辑的耗时太长,首次发送需要手动删除队列中的数据 3.核对库存 4.告知业务部门项目上线时间,上线前的数据需要手动做单 5.上线后的从erp到u8的数据需要业务部门确认:是否对现有u8业务逻辑有影响,以及核对同步单据的数据纬度是否与手动做单的数据纬度一致 6.上线后的数据确认工作:上线一个月内,随机校验库存,保证同步系统的稳定性 7.上线后完善程序心跳 机制,确保系统线程下线能随时监测到并重启]]></content>
+      <categories>
+        <category>U8库存同步</category>
+        <category>上线</category>
+      </categories>
+      <tags>
+        <tag>U8库存同步</tag>
       </tags>
   </entry>
   <entry>
